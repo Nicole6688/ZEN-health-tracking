@@ -1,0 +1,101 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User's physical information and settings.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "weight": { "type": "number", "description": "Current weight in kg" },
+        "height": { "type": "number", "description": "Height in cm" },
+        "age": { "type": "integer" },
+        "gender": { "type": "string", "enum": ["male", "female", "other"] },
+        "activityLevel": { "type": "string", "enum": ["sedentary", "light", "moderate", "active", "very_active"] },
+        "goal": { "type": "string", "enum": ["lose", "maintain", "gain"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "DietLog": {
+      "title": "Diet Log",
+      "description": "Daily food intake record.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "mealType": { "type": "string", "enum": ["breakfast", "lunch", "dinner", "snack"] },
+        "foodName": { "type": "string" },
+        "calories": { "type": "number" },
+        "protein": { "type": "number" },
+        "carbs": { "type": "number" },
+        "fat": { "type": "number" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "date", "foodName", "calories"]
+    },
+    "ExerciseLog": {
+      "title": "Exercise Log",
+      "description": "Daily physical activity record.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "activityType": { "type": "string" },
+        "duration": { "type": "number", "description": "Duration in minutes" },
+        "caloriesBurned": { "type": "number" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "date", "activityType", "duration"]
+    },
+    "WeightLog": {
+      "title": "Weight Log",
+      "description": "Weight tracking over time.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "weight": { "type": "number" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "date", "weight"]
+    },
+    "MenstrualLog": {
+      "title": "Menstrual Log",
+      "description": "Menstrual cycle tracking.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "flow": { "type": "string", "enum": ["light", "medium", "heavy", "spotting"] },
+        "symptoms": { "type": "array", "items": { "type": "string" } },
+        "notes": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "date"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "User",
+      "description": "User profile data"
+    },
+    "/dietLogs/{logId}": {
+      "schema": "DietLog",
+      "description": "Diet entries"
+    },
+    "/exerciseLogs/{logId}": {
+      "schema": "ExerciseLog",
+      "description": "Exercise entries"
+    },
+    "/weightLogs/{logId}": {
+      "schema": "WeightLog",
+      "description": "Weight entries"
+    },
+    "/menstrualLogs/{logId}": {
+      "schema": "MenstrualLog",
+      "description": "Menstrual cycle entries"
+    }
+  }
+}
